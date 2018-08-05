@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Blackboard</string>
+    <string name="lesson_one">Current Lesson</string>
+    <string name="settings">Settings</string>
+    <string name="games">Games</string>
+    <string name="lesson_two">Preview Lesson</string>
+</resources>
