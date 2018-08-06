@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class CurrentLessons extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_current_lessons);
 
         TextView text1 = findViewById(R.id.text_view_id);
         TextView text2 = findViewById(R.id.text_view2_id);
@@ -44,36 +44,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    //call when user clicks Current lessons
-    public void onclickCurrent(View Textview) {
-        Intent current_intent = new Intent(this, CurrentLessons.class);
-        current_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(current_intent);
+    public void onclickListening(View tv) {
+        Intent intent = new Intent(this, Listening.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
-    //call when user clicks Preview lessons
-    public void onclickPreview(View Textview) {
-        Intent preview_intent = new Intent(this, PreviewLessons.class);
-        preview_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(preview_intent);
-
+    public void onclickFlashcards(View tv) {
+        Intent intent = new Intent(this, Flashcards.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
-    //call when user clicks Games
-    public void onclickGames(View Textview) {
-        Intent games_intent = new Intent(this, Games.class);
-        games_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(games_intent);
-
+    public void onclickHomework(View tv) {
+        Intent intent = new Intent(this, Homework.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
-    //call when user clicks Settings
-    public void onclickSettings(View Textview) {
-        Intent settings_intent = new Intent(this, SettingsActivity.class);
-        settings_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(settings_intent);
+    public void onclickMenu(View tv) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
-
 
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Games">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/black" />
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linear_id"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/happykid2" />
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linear_id"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_view_id"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="@dimen/text_bottom_margin"-->
+    <!--android:text="@string/lesson_one"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor="#92d90f"-->
+    <!--android:textSize="@dimen/menu_text_size"-->
+    <!--android:onClick="onclickCurrent"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_view2_id"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="@dimen/text_bottom_margin"-->
+    <!--android:text="@string/lesson_two"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor="#13d483"-->
+    <!--android:textSize="@dimen/menu_text_size"-->
+    <!--android:onClick="onclickPreview"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_view3_id"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="@dimen/text_bottom_margin"-->
+    <!--android:text="@string/games"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor=" #d43613"-->
+    <!--android:textSize="@dimen/menu_text_size"-->
+    <!--android:onClick="onclickGames"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_view4_id"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="@dimen/text_bottom_margin"-->
+    <!--android:text="@string/settings"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor="#ff8585"-->
+    <!--android:textSize="@dimen/menu_text_size"-->
+    <!--android:onClick="onclickSettings"/>-->
+    <!--</LinearLayout>-->
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/linear_id"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/linear_id"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="true"
+        android:cropToPadding="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/items5" />
+
+
+</RelativeLayout>
