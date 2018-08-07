@@ -1,6 +1,7 @@
 package com.kenn.ghsoft.blackboard;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -20,6 +23,30 @@ public class Homework extends AppCompatActivity {
 
     //the recyclerview
     private RecyclerView recyclerView;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homework, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.list_id:
+                Intent list_intent = new Intent(this, AudioList.class);
+                startActivity(list_intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +96,9 @@ public class Homework extends AppCompatActivity {
 
         //setting adapter to recyclerview
         recyclerView.setAdapter(adapter);
+
     }
+
 
     public void onclickRecord(View tv) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -107,7 +136,5 @@ public class Homework extends AppCompatActivity {
         btn_id = recyclerView.getResources().getResourceEntryName(id);
 
         Log.i(btn_id, "onclickPlay: true");
-
-
     }
 }

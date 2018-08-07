@@ -65,4 +65,8 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="listening">Listening</string>
     <string name="flashcards">Flashcards</string>
+    <string name="homework_activity_name">Homework</string>
+    <string name="list">LIst</string>
+    <string name="audio_list">List</string>
+    <string name="share">Share</string>
 </resources>
