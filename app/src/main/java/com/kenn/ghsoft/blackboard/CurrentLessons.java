@@ -57,7 +57,7 @@ public class CurrentLessons extends AppCompatActivity {
     }
 
     public void onclickHomework(View tv) {
-        Intent intent = new Intent(this, Homework.class);
+        Intent intent = new Intent(this, HomeworkQuestions.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }

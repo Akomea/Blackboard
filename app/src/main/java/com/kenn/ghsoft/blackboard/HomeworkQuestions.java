@@ -16,7 +16,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Homework extends AppCompatActivity {
+public class HomeworkQuestions extends AppCompatActivity {
 
     //a list to store all the products
     private List<Question> productList;
@@ -39,7 +39,7 @@ public class Homework extends AppCompatActivity {
                 return true;
 
             case R.id.list_id:
-                Intent list_intent = new Intent(this, AudioList.class);
+                Intent list_intent = new Intent(this, RecordingListActivity.class);
                 startActivity(list_intent);
                 return true;
 

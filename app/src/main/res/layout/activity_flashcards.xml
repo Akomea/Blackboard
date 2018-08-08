@@ -60,7 +60,7 @@
     <!--android:layout_height="match_parent"-->
     <!--android:layout_marginBottom="@dimen/text_bottom_margin"-->
     <!--android:onClick="onclickGames"-->
-    <!--android:text="Homework"-->
+    <!--android:text="HomeworkQuestions"-->
     <!--android:textAlignment="center"-->
     <!--android:textColor=" #d43613"-->
     <!--android:textSize="@dimen/menu_text_size" />-->

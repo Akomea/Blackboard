@@ -8,13 +8,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AudioList extends AppCompatActivity {
+public class RecordingListActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audio_list);
+        setContentView(R.layout.activity_recording_list);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

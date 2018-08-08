@@ -34,17 +34,17 @@
         <activity android:name=".Listening" />
         <activity android:name=".Flashcards" />
         <activity
-            android:name=".Homework"
+            android:name=".HomeworkQuestions"
             android:label="@string/homework_activity_name" />
         <activity
-            android:name=".AudioList"
+            android:name=".RecordingListActivity"
             android:label="@string/audio_list"
-            android:parentActivityName=".Homework">
+            android:parentActivityName=".HomeworkQuestions">
             <meta-data
                 android:name="androd.support. PARENT_ACTIVITY"
                 android:value=".Homework" />
         </activity>
-
+        <activity android:name=".MainRecordingActivity"></activity>
     </application>
 
 </manifest>
