@@ -1,10 +1,8 @@
 package com.kenn.ghsoft.blackboard;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,8 +37,9 @@ public class HomeworkQuestions extends AppCompatActivity {
                 return true;
 
             case R.id.list_id:
-                Intent list_intent = new Intent(this, RecordingListActivity.class);
-                startActivity(list_intent);
+                Intent intentList = new Intent(this, RecordingListActivity.class);
+                intentList.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentList);
                 return true;
 
             default:
@@ -101,28 +100,9 @@ public class HomeworkQuestions extends AppCompatActivity {
 
 
     public void onclickRecord(View tv) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Would you like to record an answer?");
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        Intent intentGoRecordActivityDialog = new Intent(this, MainRecordingActivity.class);
+        startActivity(intentGoRecordActivityDialog);
+        this.setFinishOnTouchOutside(false);
     }
 
     public void onclickPlay(View btv) {

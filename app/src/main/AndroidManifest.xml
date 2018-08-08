@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -44,7 +45,11 @@
                 android:name="androd.support. PARENT_ACTIVITY"
                 android:value=".Homework" />
         </activity>
-        <activity android:name=".MainRecordingActivity"></activity>
+        <activity
+            android:name=".MainRecordingActivity"
+            android:label="Recorder"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyTheme.AppCompat.Dialog" />
     </application>
 
 </manifest>

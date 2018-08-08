@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="34dp"
-                android:background="@drawable/ic_play"
+                android:background="@drawable/ic_play_rec"
                 android:onClick="onclickPlay" />
 
 

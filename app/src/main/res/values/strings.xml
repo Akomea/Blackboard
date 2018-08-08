@@ -69,4 +69,5 @@
     <string name="list">LIst</string>
     <string name="audio_list">List</string>
     <string name="share">Share</string>
+    <string name="no_recordings_found">No Recordings found.</string>
 </resources>

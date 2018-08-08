@@ -7,6 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="android:actionMenuTextColor">@android:color/holo_red_light</item>
+
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
+
         <item name="cardViewStyle">@style/CardView</item>
     </style>
 
@@ -17,5 +21,11 @@
     <style name="noAnimTheme" parent="android:Theme" tools:keep="@style/noAnimTheme">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
+
+    <style name="MyTheme.AppCompat.Dialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 
 </resources>

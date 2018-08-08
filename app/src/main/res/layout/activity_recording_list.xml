@@ -3,25 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordingListActivity">
+    android:background="@android:color/white"
+    tools:context="com.kenn.ghsoft.blackboard.RecordingListActivity">
 
-    <android.support.v7.widget.AppCompatImageView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewRecordings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/black" />
+        android:layout_height="match_parent" />
 
-
-    <android.support.v7.widget.AppCompatImageView
+    <TextView
+        android:id="@+id/textViewNoRecordings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/linear_id"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/happykid2" />
-
-
+        android:layout_centerInParent="true"
+        android:text="@string/no_recordings_found"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="invisible" />
 </RelativeLayout>
