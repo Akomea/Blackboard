@@ -70,4 +70,5 @@
     <string name="audio_list">List</string>
     <string name="share">Share</string>
     <string name="no_recordings_found">No Recordings found.</string>
+    <string name="home_main">Home</string>
 </resources>

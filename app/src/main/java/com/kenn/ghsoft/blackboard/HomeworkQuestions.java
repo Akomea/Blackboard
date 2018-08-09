@@ -36,6 +36,11 @@ public class HomeworkQuestions extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 
+            case R.id.home_id:
+                Intent intentHome = new Intent(this, MainActivity.class);
+                startActivity(intentHome);
+                return true;
+
             case R.id.list_id:
                 Intent intentList = new Intent(this, RecordingListActivity.class);
                 intentList.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -32,7 +32,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.cardview, null);
+        View view = inflater.inflate(R.layout.cardview, parent, false);
         return new ProductViewHolder(view);
     }
 

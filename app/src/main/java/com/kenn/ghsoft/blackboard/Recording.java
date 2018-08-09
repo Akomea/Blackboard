@@ -1,8 +1,9 @@
 package com.kenn.ghsoft.blackboard;
 
 public class Recording {
-    String Uri, fileName;
-    boolean isPlaying = false;
+    private String Uri;
+    private String fileName;
+    private boolean isPlaying = false;
 
 
     public Recording(String uri, String fileName, boolean isPlaying) {

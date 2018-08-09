@@ -17,9 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -85,26 +82,6 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
         imageViewStop.setOnClickListener(this);
         imageViewPlay.setOnClickListener(this);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_homework, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.list_id:
-                gotoRecodingListActivity();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void gotoRecodingListActivity() {
