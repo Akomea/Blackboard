@@ -1,11 +1,13 @@
 package com.kenn.ghsoft.blackboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +21,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
     private Context mCtx;
 
     //we are storing all the products in a list
-    private List<Question> productList;
+    private List<Question> questionList;
 
     //getting the context and product list with constructor
-    public QuestionAdapter(Context mCtx, List<Question> productList) {
+    public QuestionAdapter(Context mCtx, List<Question> questionList) {
         this.mCtx = mCtx;
-        this.productList = productList;
+        this.questionList = questionList;
     }
 
     @NonNull
@@ -38,26 +40,27 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        //getting the product of the specified position
-        Question product = productList.get(position);
+        //getting the question of the specified position
+        Question question = questionList.get(position);
 
         //binding the data with the viewholder views
-        holder.textViewTitle.setText(product.getTitle());
-        holder.textViewShortDesc.setText(product.getShortdesc());
-        holder.textViewRating.setText(String.valueOf(product.getRating()));
-        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
+        holder.textViewTitle.setText(question.getTitle());
+        holder.textViewShortDesc.setText(question.getShortdesc());
+        holder.textViewRating.setText(String.valueOf(question.getTranslation()));
+        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(question.getImage()));
     }
 
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return questionList.size();
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewTitle, textViewShortDesc, textViewRating;
         ImageView imageView;
+        ImageButton imageButton;
 
         ProductViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +69,22 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
             textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewRating = itemView.findViewById(R.id.textViewRating);
             imageView = itemView.findViewById(R.id.imageView);
+            imageButton = itemView.findViewById(R.id.recButton);
+
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    Question question = questionList.get(position);
+                    String title = String.valueOf(textViewTitle);
+                    Intent intentGoRecordActivityDialog = new Intent(mCtx, MainRecordingActivity.class);
+                    intentGoRecordActivityDialog.putExtra("Position", position);
+                    intentGoRecordActivityDialog.putExtra("Title", title);
+
+                    mCtx.startActivity(intentGoRecordActivityDialog);
+
+                }
+            });
         }
     }
 }

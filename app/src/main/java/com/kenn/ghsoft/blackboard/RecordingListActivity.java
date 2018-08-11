@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class RecordingListActivity extends AppCompatActivity {
 
-
     private RecyclerView recyclerViewRecordings;
     private ArrayList<Recording> recordingArraylist;
     private RecordingAdapter recordingAdapter;
@@ -31,6 +30,7 @@ public class RecordingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording_list);
+
 
         recordingArraylist = new ArrayList<Recording>();
 
@@ -116,9 +116,6 @@ public class RecordingListActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
-
     }
-
 }

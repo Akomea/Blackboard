@@ -53,6 +53,7 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recording);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getPermissionToRecordAudio();
         }
@@ -143,6 +144,8 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
     }
 
     private void startRecording() {
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("Title");
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);

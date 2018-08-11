@@ -7,15 +7,13 @@ public class Question {
     private String shortdesc;
     private String translate;
     private int image;
-    private int audio;
 
-    public Question(int id, String title, String shortdesc, String translate, int image, int audio) {
+    public Question(int id, String title, String shortdesc, String translate, int image) {
         this.id = id;
         this.title = title;
         this.shortdesc = shortdesc;
         this.translate = translate;
         this.image = image;
-        this.audio = audio;
 
     }
 
@@ -31,16 +29,12 @@ public class Question {
         return shortdesc;
     }
 
-    public String getRating() {
+    public String getTranslation() {
         return translate;
     }
 
     public int getImage() {
         return image;
-    }
-
-    public int getAudio() {
-        return audio;
     }
 
 }

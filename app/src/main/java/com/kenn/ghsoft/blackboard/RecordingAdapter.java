@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -56,8 +57,9 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         Recording recording = recordingArrayList.get(position);
         holder.textViewName.setText(recording.getFileName());
 
+
         if (recording.isPlaying()) {
-            holder.imageViewPlay.setImageResource(R.drawable.ic_pause);
+            holder.imageViewPlay.setImageResource(R.drawable.ic_pause_circle_filled_black_24dp);
             TransitionManager.beginDelayedTransition((ViewGroup) holder.itemView);
             holder.seekBar.setVisibility(View.VISIBLE);
             holder.seekUpdation(holder);
@@ -79,6 +81,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageViewPlay;
+        CheckBox checkBox;
         SeekBar seekBar;
         TextView textViewName;
         ViewHolder holder;
@@ -98,6 +101,8 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             imageViewPlay = itemView.findViewById(R.id.imageViewPlay);
             seekBar = itemView.findViewById(R.id.seekBar);
             textViewName = itemView.findViewById(R.id.textViewRecordingname);
+            checkBox = itemView.findViewById(R.id.checkBox);
+
 
             imageViewPlay.setOnClickListener(new View.OnClickListener() {
                 @Override

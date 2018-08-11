@@ -1,7 +1,6 @@
 package com.kenn.ghsoft.blackboard;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,7 @@ import java.util.List;
 public class HomeworkQuestions extends AppCompatActivity {
 
     //a list to store all the products
-    private List<Question> productList;
+    private List<Question> questionList;
 
     //the recyclerview
     private RecyclerView recyclerView;
@@ -63,40 +62,40 @@ public class HomeworkQuestions extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //initializing the productlist
-        productList = new ArrayList<>();
+        //initializing the questionlist
+        questionList = new ArrayList<>();
 
 
         //adding some items to our list
-        productList.add(
+        questionList.add(
                 new Question(
                         1,
-                        "The Strong Donkey",
+                        "Question Title",
                         "Questions will go here",
                         "Translate",
-                        R.drawable.happykid2,
-                        R.raw.flyaway));
+                        R.drawable.happykid2
+                ));
 
-        productList.add(
+        questionList.add(
                 new Question(
                         1,
-                        "The Strong Donkey",
+                        "Quetion Title",
                         "Questions will go here",
                         "Translate",
-                        R.drawable.happykid2,
-                        R.raw.renjia));
+                        R.drawable.happykid2
+                ));
 
-        productList.add(
+        questionList.add(
                 new Question(
                         1,
-                        "The Strong Donkey",
+                        "Question Title",
                         "Questions will go here",
                         "Translate",
-                        R.drawable.happykid2,
-                        R.raw.renjia));
+                        R.drawable.happykid2
+                ));
 
         //creating recyclerview adapter
-        QuestionAdapter adapter = new QuestionAdapter(this, productList);
+        QuestionAdapter adapter = new QuestionAdapter(this, questionList);
 
         //setting adapter to recyclerview
         recyclerView.setAdapter(adapter);
@@ -104,22 +103,8 @@ public class HomeworkQuestions extends AppCompatActivity {
     }
 
 
-    public void onclickRecord(View tv) {
-        Intent intentGoRecordActivityDialog = new Intent(this, MainRecordingActivity.class);
-        startActivity(intentGoRecordActivityDialog);
-        this.setFinishOnTouchOutside(false);
-    }
-
     public void onclickPlay(View btv) {
-        int id = recyclerView.getId();
-        String btn_id = "";
 
-        int resourceId = recyclerView.getResources().getIdentifier(btn_id, "raw", "com.kenn.ghsoft.blackboard");
-        MediaPlayer mediaPlayer = MediaPlayer.create(getBaseContext(), resourceId);
-        mediaPlayer.start();
-
-        btn_id = recyclerView.getResources().getResourceEntryName(id);
-
-        Log.i(btn_id, "onclickPlay: true");
+        Log.i("Card Play button", "onclickPlay: true");
     }
 }
