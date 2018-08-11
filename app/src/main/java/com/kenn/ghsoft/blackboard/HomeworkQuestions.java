@@ -79,7 +79,7 @@ public class HomeworkQuestions extends AppCompatActivity {
         questionList.add(
                 new Question(
                         1,
-                        "Quetion Title",
+                        "Question Title",
                         "Questions will go here",
                         "Translate",
                         R.drawable.happykid2

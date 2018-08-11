@@ -76,7 +76,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     Question question = questionList.get(position);
-                    String title = String.valueOf(textViewTitle);
+                    String title = textViewTitle.getText().toString();
                     Intent intentGoRecordActivityDialog = new Intent(mCtx, MainRecordingActivity.class);
                     intentGoRecordActivityDialog.putExtra("Position", position);
                     intentGoRecordActivityDialog.putExtra("Title", title);

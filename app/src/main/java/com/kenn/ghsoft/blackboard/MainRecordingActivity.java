@@ -144,8 +144,7 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
     }
 
     private void startRecording() {
-        Intent intent = getIntent();
-        String title = intent.getStringExtra("Title");
+        String recordTitle = getIntent().getStringExtra("Title");
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -155,7 +154,7 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
             file.mkdirs();
         }
 
-        fileName = root.getAbsolutePath() + "/Blackboard/Audios/" + String.valueOf(System.currentTimeMillis() + ".mp3");
+        fileName = root.getAbsolutePath() + "/Blackboard/Audios/" + (recordTitle + ".mp3");
         Log.d("filename", fileName);
         mRecorder.setOutputFile(fileName);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
