@@ -62,6 +62,15 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopPlaying();
+        stopRecording();
+    }
+
+
+
     private void initViews() {
 
         /** setting up the toolbar  **/

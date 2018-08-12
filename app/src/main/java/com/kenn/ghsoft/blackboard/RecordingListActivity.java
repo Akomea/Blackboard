@@ -25,6 +25,7 @@ public class RecordingListActivity extends AppCompatActivity {
     private RecordingAdapter recordingAdapter;
     private TextView textViewNoRecordings;
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,12 @@ public class RecordingListActivity extends AppCompatActivity {
         initViews();
 
         fetchRecordings();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
 
     }
 
