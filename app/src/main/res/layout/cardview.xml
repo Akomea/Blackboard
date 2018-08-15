@@ -62,7 +62,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
             <Button
-                android:id="@+id/textViewRating"
+                android:id="@+id/translate_button"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_below="@id/textViewShortDesc"
@@ -74,7 +74,8 @@
                 android:paddingRight="15dp"
                 android:text="Translate"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
 
             <ImageButton
@@ -83,9 +84,22 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/textViewRating"
+                android:layout_below="@id/textViewTranslate"
                 android:background="@color/white"
                 app:srcCompat="@drawable/mic1" />
+
+            <TextView
+                android:id="@+id/textViewTranslate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/translate_button"
+                android:layout_alignLeft="@+id/textViewTitle"
+                android:layout_alignStart="@+id/textViewTitle"
+                android:text="Translation will go here"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

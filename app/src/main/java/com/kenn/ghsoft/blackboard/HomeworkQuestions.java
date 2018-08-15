@@ -72,7 +72,7 @@ public class HomeworkQuestions extends AppCompatActivity {
                         1,
                         "Question Title",
                         "Questions will go here",
-                        "Translate",
+                        "Translation will go here",
                         R.drawable.happykid2
                 ));
 
@@ -81,7 +81,7 @@ public class HomeworkQuestions extends AppCompatActivity {
                         1,
                         "Question Title",
                         "Questions will go here",
-                        "Translate",
+                        "Translation will go here",
                         R.drawable.happykid2
                 ));
 
@@ -90,7 +90,7 @@ public class HomeworkQuestions extends AppCompatActivity {
                         1,
                         "Question Title",
                         "Questions will go here",
-                        "Translate",
+                        "Translation will go here",
                         R.drawable.happykid2
                 ));
 

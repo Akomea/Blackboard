@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
         //binding the data with the viewholder views
         holder.textViewTitle.setText(question.getTitle());
         holder.textViewShortDesc.setText(question.getShortdesc());
-        holder.textViewRating.setText(String.valueOf(question.getTranslation()));
+        holder.textViewTranslation.setText(String.valueOf(question.getTranslation()));
         holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(question.getImage()));
     }
 
@@ -58,18 +59,20 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewTitle, textViewShortDesc, textViewRating;
+        TextView textViewTitle, textViewShortDesc, textViewTranslation;
         ImageView imageView;
         ImageButton imageButton;
+        Button translateButton;
 
         ProductViewHolder(View itemView) {
             super(itemView);
 
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
+            textViewTranslation = itemView.findViewById(R.id.textViewTranslate);
             imageView = itemView.findViewById(R.id.imageView);
             imageButton = itemView.findViewById(R.id.recButton);
+            translateButton = itemView.findViewById(R.id.translate_button);
 
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,6 +88,29 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
 
                 }
             });
+            translateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    Question question = questionList.get(position);
+                    translateButton.setVisibility(View.INVISIBLE);
+                    textViewTranslation.setVisibility(View.VISIBLE);
+
+                }
+            });
+
+            textViewTranslation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    Question question = questionList.get(position);
+                    translateButton.setVisibility(View.VISIBLE);
+                    textViewTranslation.setVisibility(View.INVISIBLE);
+                }
+            });
+
+
+
         }
     }
 }

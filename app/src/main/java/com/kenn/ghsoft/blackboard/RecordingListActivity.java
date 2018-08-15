@@ -41,12 +41,6 @@ public class RecordingListActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
-
     private void fetchRecordings() {
 
         File root = Environment.getExternalStorageDirectory();
@@ -95,7 +89,6 @@ public class RecordingListActivity extends AppCompatActivity {
         recyclerViewRecordings.setHasFixedSize(true);
 
         textViewNoRecordings = findViewById(R.id.textViewNoRecordings);
-
     }
 
     @Override

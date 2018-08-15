@@ -62,13 +62,6 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopPlaying();
-        stopRecording();
-    }
-
 
 
     private void initViews() {
@@ -256,6 +249,7 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
             lastProgress = mCurrentPosition;
         }
         mHandler.postDelayed(runnable, 100);
+
     }
 
 

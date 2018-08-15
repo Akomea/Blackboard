@@ -5,14 +5,14 @@ public class Question {
     private int id;
     private String title;
     private String shortdesc;
-    private String translate;
+    private String translation;
     private int image;
 
-    public Question(int id, String title, String shortdesc, String translate, int image) {
+    public Question(int id, String title, String shortdesc, String translation, int image) {
         this.id = id;
         this.title = title;
         this.shortdesc = shortdesc;
-        this.translate = translate;
+        this.translation = translation;
         this.image = image;
 
     }
@@ -30,7 +30,7 @@ public class Question {
     }
 
     public String getTranslation() {
-        return translate;
+        return translation;
     }
 
     public int getImage() {
