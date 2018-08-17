@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -67,8 +68,17 @@ public class RecordingListActivity extends AppCompatActivity implements ActionMo
             setAdaptertoRecyclerView();
 
         } else {
-            TextView textView = findViewById(R.id.textViewNoRecordings);
-            textView.setVisibility(View.VISIBLE);
+            TextView textView1 = findViewById(R.id.textViewNoRecordings);
+            textView1.setVisibility(View.VISIBLE);
+
+            TextView textView2 = findViewById(R.id.no_rec_msg1);
+            textView2.setVisibility(View.VISIBLE);
+
+            TextView textView3 = findViewById(R.id.no_rec_msg2);
+            textView3.setVisibility(View.VISIBLE);
+
+            ImageView imageView = findViewById(R.id.no_rec_image);
+            imageView.setVisibility(View.VISIBLE);
             recyclerViewRecordings.setVisibility(View.GONE);
         }
     }
@@ -180,6 +190,9 @@ public class RecordingListActivity extends AppCompatActivity implements ActionMo
     public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete:
+                for(int i=0; i<selectedIds.size(); i++) {
+                    selectedIds.remove(i);
+                }
 
                 Log.i("delete", "onActionItemClicked: Yaayy!!!!");
         }

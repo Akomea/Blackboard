@@ -69,6 +69,8 @@
     <string name="list">LIst</string>
     <string name="audio_list">List</string>
     <string name="share">Share</string>
-    <string name="no_recordings_found">No Recordings found.</string>
+    <string name="no_recordings_found">No Recordings found</string>
     <string name="home_main">Home</string>
+    <string name="record_an_answer">Record an Answer</string>
+    <string name="no_rec_msg2">Recordings will appear here</string>
 </resources>
