@@ -15,12 +15,6 @@ import java.util.List;
 
 public class HomeworkQuestions extends AppCompatActivity {
 
-    //a list to store all the products
-    private List<Question> questionList;
-
-    //the recyclerview
-    private RecyclerView recyclerView;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_homework, menu);
@@ -56,21 +50,19 @@ public class HomeworkQuestions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework);
 
-
         //getting the recyclerview from xml
-        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //initializing the questionlist
-        questionList = new ArrayList<>();
-
+        List<Question> questionList = new ArrayList<>();
 
         //adding some items to our list
         questionList.add(
                 new Question(
                         1,
-                        "Question Title",
+                        "Question Title 001",
                         "Questions will go here",
                         "Translation will go here",
                         R.drawable.happykid2
@@ -79,7 +71,7 @@ public class HomeworkQuestions extends AppCompatActivity {
         questionList.add(
                 new Question(
                         1,
-                        "Question Title",
+                        "Question Title 002",
                         "Questions will go here",
                         "Translation will go here",
                         R.drawable.happykid2
@@ -88,7 +80,7 @@ public class HomeworkQuestions extends AppCompatActivity {
         questionList.add(
                 new Question(
                         1,
-                        "Question Title",
+                        "Question Title 003",
                         "Questions will go here",
                         "Translation will go here",
                         R.drawable.happykid2
@@ -99,12 +91,9 @@ public class HomeworkQuestions extends AppCompatActivity {
 
         //setting adapter to recyclerview
         recyclerView.setAdapter(adapter);
-
     }
 
-
     public void onclickPlay(View btv) {
-
         Log.i("Card Play button", "onclickPlay: true");
     }
 }

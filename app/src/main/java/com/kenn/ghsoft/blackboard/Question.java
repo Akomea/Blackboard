@@ -8,7 +8,7 @@ public class Question {
     private String translation;
     private int image;
 
-    public Question(int id, String title, String shortdesc, String translation, int image) {
+    Question(int id, String title, String shortdesc, String translation, int image) {
         this.id = id;
         this.title = title;
         this.shortdesc = shortdesc;

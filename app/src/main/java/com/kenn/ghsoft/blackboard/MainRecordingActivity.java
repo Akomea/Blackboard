@@ -2,7 +2,6 @@ package com.kenn.ghsoft.blackboard;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -29,7 +28,6 @@ import java.io.IOException;
 
 public class MainRecordingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar toolbar;
     private Chronometer chronometer;
     private ImageView imageViewRecord, imageViewPlay, imageViewStop;
     private SeekBar seekBar;
@@ -53,7 +51,6 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recording);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getPermissionToRecordAudio();
         }
@@ -62,12 +59,10 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
 
     }
 
-
-
     private void initViews() {
 
-        /** setting up the toolbar  **/
-        toolbar = findViewById(R.id.toolbar);
+        /* setting up the toolbar  **/
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setTitle("Record Answer");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         setSupportActionBar(toolbar);
@@ -84,13 +79,6 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
         imageViewRecord.setOnClickListener(this);
         imageViewStop.setOnClickListener(this);
         imageViewPlay.setOnClickListener(this);
-
-    }
-
-    private void gotoRecodingListActivity() {
-        Intent intent = new Intent(this, RecordingListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -210,7 +198,6 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
         seekUpdation();
         chronometer.start();
 
-
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -249,7 +236,6 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
             lastProgress = mCurrentPosition;
         }
         mHandler.postDelayed(runnable, 100);
-
     }
 
 
@@ -287,7 +273,7 @@ public class MainRecordingActivity extends AppCompatActivity implements View.OnC
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
 
-                //Toast.makeText(this, "Record Audio permission granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
 
             } else {
                 Toast.makeText(this, "You must give permissions to use this app. App is exiting.", Toast.LENGTH_SHORT).show();

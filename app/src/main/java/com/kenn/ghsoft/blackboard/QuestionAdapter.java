@@ -15,8 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 
-public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ProductViewHolder> {
-
+public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
 
     //this context we will use to inflate the layout
     private Context mCtx;
@@ -25,22 +24,22 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
     private List<Question> questionList;
 
     //getting the context and product list with constructor
-    public QuestionAdapter(Context mCtx, List<Question> questionList) {
+    QuestionAdapter(Context mCtx, List<Question> questionList) {
         this.mCtx = mCtx;
         this.questionList = questionList;
     }
 
     @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.cardview, parent, false);
-        return new ProductViewHolder(view);
+        return new QuestionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         //getting the question of the specified position
         Question question = questionList.get(position);
 
@@ -51,20 +50,19 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
         holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(question.getImage()));
     }
 
-
     @Override
     public int getItemCount() {
         return questionList.size();
     }
 
-    class ProductViewHolder extends RecyclerView.ViewHolder {
+    class QuestionViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewTitle, textViewShortDesc, textViewTranslation;
         ImageView imageView;
         ImageButton imageButton;
         Button translateButton;
 
-        ProductViewHolder(View itemView) {
+        QuestionViewHolder(View itemView) {
             super(itemView);
 
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
@@ -78,11 +76,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    Question question = questionList.get(position);
+
                     String title = textViewTitle.getText().toString();
                     Intent intentGoRecordActivityDialog = new Intent(mCtx, MainRecordingActivity.class);
                     intentGoRecordActivityDialog.putExtra("Position", position);
                     intentGoRecordActivityDialog.putExtra("Title", title);
+                    intentGoRecordActivityDialog.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     mCtx.startActivity(intentGoRecordActivityDialog);
 
@@ -91,26 +90,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Produc
             translateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    Question question = questionList.get(position);
                     translateButton.setVisibility(View.INVISIBLE);
                     textViewTranslation.setVisibility(View.VISIBLE);
-
                 }
             });
-
             textViewTranslation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    Question question = questionList.get(position);
                     translateButton.setVisibility(View.VISIBLE);
                     textViewTranslation.setVisibility(View.INVISIBLE);
                 }
             });
-
-
-
         }
     }
 }

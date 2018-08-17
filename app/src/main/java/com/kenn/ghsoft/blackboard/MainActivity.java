@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         text2.setShadowLayer(30, 1.0f, 1.0f, Color.BLACK);
         text3.setShadowLayer(30, 1.0f, 1.0f, Color.BLACK);
         text4.setShadowLayer(30, 1.0f, 1.0f, Color.BLACK);
-
     }
 
 
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         Intent preview_intent = new Intent(this, PreviewLessons.class);
         preview_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(preview_intent);
-
     }
 
     //call when user clicks Games
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         Intent games_intent = new Intent(this, Games.class);
         games_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(games_intent);
-
     }
 
     //call when user clicks Settings
@@ -74,6 +71,4 @@ public class MainActivity extends AppCompatActivity {
         settings_intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(settings_intent);
     }
-
-
 }

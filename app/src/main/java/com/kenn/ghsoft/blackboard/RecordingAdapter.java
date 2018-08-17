@@ -2,10 +2,13 @@ package com.kenn.ghsoft.blackboard;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -14,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.ViewHolder> {
@@ -28,26 +33,35 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     private MediaPlayer mPlayer;
     private boolean isPlaying = false;
     private int last_index = -1;
+    private List<Integer> selectedIds = new ArrayList<>();
 
     public RecordingAdapter(Context context, ArrayList<Recording> recordingArrayList) {
         this.context = context;
         this.recordingArrayList = recordingArrayList;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.recording_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
         setUpData(holder, position);
 
+        int id = recordingArrayList.get(position).getId();
+
+        if (selectedIds.contains(id)) {
+            //if item is selected then,set foreground color of FrameLayout.
+            holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context, R.color.colorControlActivated)));
+        } else {
+            //else remove selected item color.
+            holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent)));
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -56,7 +70,6 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
 
         Recording recording = recordingArrayList.get(position);
         holder.textViewName.setText(recording.getFileName());
-
 
         if (recording.isPlaying()) {
             holder.imageViewPlay.setImageResource(R.drawable.ic_pause_circle_filled_black_24dp);
@@ -68,7 +81,6 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             TransitionManager.beginDelayedTransition((ViewGroup) holder.itemView);
             holder.seekBar.setVisibility(View.GONE);
         }
-
         holder.manageSeekBar(holder);
 
     }
@@ -77,9 +89,18 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     public int getItemCount() {
         return recordingArrayList.size();
     }
+    public Recording getItem(int position){
+        return recordingArrayList.get(position);
+    }
+
+    public void setSelectedIds(List<Integer> selectedIds) {
+        this.selectedIds = selectedIds;
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        RelativeLayout rootView;
         ImageView imageViewPlay;
         CheckBox checkBox;
         SeekBar seekBar;
@@ -102,6 +123,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             seekBar = itemView.findViewById(R.id.seekBar);
             textViewName = itemView.findViewById(R.id.textViewRecordingname);
             checkBox = itemView.findViewById(R.id.checkBox);
+            rootView = itemView.findViewById(R.id.rootView);
 
 
             imageViewPlay.setOnClickListener(new View.OnClickListener() {
@@ -140,13 +162,12 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
                         notifyItemChanged(position);
                         last_index = position;
                     }
-
                 }
 
             });
         }
 
-        public void manageSeekBar(ViewHolder holder) {
+        private void manageSeekBar(ViewHolder holder) {
             holder.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
