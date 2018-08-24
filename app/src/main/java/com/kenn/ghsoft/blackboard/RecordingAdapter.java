@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,12 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     private boolean isPlaying = false;
     private int last_index = -1;
     private List<Integer> selectedIds = new ArrayList<>();
+    private SparseBooleanArray selectedItems;
 
     public RecordingAdapter(Context context, ArrayList<Recording> recordingArrayList) {
         this.context = context;
         this.recordingArrayList = recordingArrayList;
+        selectedItems=new SparseBooleanArray();
     }
 
     @NonNull
@@ -82,21 +85,30 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             holder.seekBar.setVisibility(View.GONE);
         }
         holder.manageSeekBar(holder);
-
     }
 
     @Override
     public int getItemCount() {
         return recordingArrayList.size();
     }
+
     public Recording getItem(int position){
         return recordingArrayList.get(position);
+    }
+
+    void deleteItem(int position) {
+        recordingArrayList.remove(position);
+        notifyDataSetChanged();
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, recordingArrayList.size());
+
     }
 
     public void setSelectedIds(List<Integer> selectedIds) {
         this.selectedIds = selectedIds;
         notifyDataSetChanged();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -167,6 +179,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             });
         }
 
+
         private void manageSeekBar(ViewHolder holder) {
             holder.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
@@ -235,6 +248,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
                 public void onCompletion(MediaPlayer mp) {
                     audio.setPlaying(false);
                     notifyItemChanged(position);
+
                 }
             });
 

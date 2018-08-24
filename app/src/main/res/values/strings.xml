@@ -73,4 +73,6 @@
     <string name="home_main">Home</string>
     <string name="record_an_answer">Record an Answer</string>
     <string name="no_rec_msg2">Recordings will appear here</string>
+    <string name="homework">Homework</string>
+    <string name="playful_panda">playful panda</string>
 </resources>

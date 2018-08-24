@@ -2,6 +2,8 @@ package com.kenn.ghsoft.blackboard;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -68,19 +70,23 @@ public class RecordingListActivity extends AppCompatActivity implements ActionMo
             setAdaptertoRecyclerView();
 
         } else {
-            TextView textView1 = findViewById(R.id.textViewNoRecordings);
-            textView1.setVisibility(View.VISIBLE);
-
-            TextView textView2 = findViewById(R.id.no_rec_msg1);
-            textView2.setVisibility(View.VISIBLE);
-
-            TextView textView3 = findViewById(R.id.no_rec_msg2);
-            textView3.setVisibility(View.VISIBLE);
-
-            ImageView imageView = findViewById(R.id.no_rec_image);
-            imageView.setVisibility(View.VISIBLE);
-            recyclerViewRecordings.setVisibility(View.GONE);
+            showNoRecordingsText();
         }
+    }
+
+    private void showNoRecordingsText() {
+        TextView textView1 = findViewById(R.id.textViewNoRecordings);
+        textView1.setVisibility(View.VISIBLE);
+
+        TextView textView2 = findViewById(R.id.no_rec_msg1);
+        textView2.setVisibility(View.VISIBLE);
+
+        TextView textView3 = findViewById(R.id.no_rec_msg2);
+        textView3.setVisibility(View.VISIBLE);
+
+        ImageView imageView = findViewById(R.id.no_rec_image);
+        imageView.setVisibility(View.VISIBLE);
+        recyclerViewRecordings.setVisibility(View.GONE);
     }
 
     private void setAdaptertoRecyclerView() {
@@ -174,6 +180,11 @@ public class RecordingListActivity extends AppCompatActivity implements ActionMo
         }
     }
 
+    public ArrayList<Recording> getRecordingArraylist() {
+        return recordingArraylist;
+    }
+
+
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
         MenuInflater inflater = actionMode.getMenuInflater();
@@ -186,15 +197,69 @@ public class RecordingListActivity extends AppCompatActivity implements ActionMo
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete:
+                // Need to finish the action mode before doing the following,
+                // not after. No idea why, but it crashes.
+                actionMode.finish();
+                List<Integer> toBeRemovedItemPositions = selectedIds;
+
                 for(int i=0; i<selectedIds.size(); i++) {
-                    selectedIds.remove(i);
+                    Log.d("IDS", "onActionItemClicked: "+selectedIds.get(i));
                 }
 
-                Log.i("delete", "onActionItemClicked: Yaayy!!!!");
+                int currPos;
+
+                for (int i = recordingArraylist.size() - 1; i >= 0; i--) {
+                    Recording data = recordingArraylist.get(i);
+
+                    File root = Environment.getExternalStorageDirectory();
+                    String path = root.getAbsolutePath() + "/Blackboard/Audios";
+                    File directory = new File(path);
+                    File[] files = directory.listFiles();
+                    String filename = files[i].getName();
+                    int item = recordingAdapter.getItem(i).getId();
+
+                    recordingAdapter.deleteItem(item);
+                    files[item].delete();
+                    actionMode.finish();
+
+                    //implement showNoRecordingsText(); if arrayList is empty
+
+
+                    Log.d("DELETED FILE", "FileName:" + files[item].getName());
+                    Log.d("DATA ID: ", "Recording ID:" + data.getId());
+                    Log.d("Files", "Size: " + files.length);
+                }
+                return true;
+            case R.id.action_share:
+
+                File root = Environment.getExternalStorageDirectory();
+                String path = root.getAbsolutePath() + "/Blackboard/Audios";
+                Log.d("Files", "Path: " + path);
+                File directory = new File(path);
+                File[] files = directory.listFiles();
+                Log.d("Files", "Size: " + files.length);
+
+                for (int i = 0; i < files.length; i++) {
+
+                    Log.d("Files", "FileName:" + files[i].getName());
+                    String fileName = files[i].getName();
+                    String recordingUri = root.getAbsolutePath() + "/Blackboard/Audios/" + fileName;
+
+                    String sharePath = recordingUri;
+                    Uri uri = Uri.parse(sharePath);
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("audio/*");
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    startActivity(Intent.createChooser(share, "Share Sound File"));
+                }
+
+                return true;
+
         }
         return false;
     }
@@ -206,4 +271,14 @@ public class RecordingListActivity extends AppCompatActivity implements ActionMo
         recordingAdapter.setSelectedIds(new ArrayList<Integer>());
         actionMode = null;
     }
+
+    static class UpdateRecordingsTask extends AsyncTask<Recording, Recording, RecordingAdapter> {
+
+        @Override
+        protected RecordingAdapter doInBackground(Recording... recordings) {
+            return null;
+        }
+    }
+
+
 }

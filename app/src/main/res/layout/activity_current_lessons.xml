@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/text_bottom_margin"
             android:onClick="onclickHomework"
-            android:text="Homework"
+            android:text="@string/homework"
             android:textAlignment="center"
             android:textColor=" #d43613"
             android:textSize="@dimen/menu_text_size" />
@@ -77,6 +77,20 @@
             android:textColor="#ff8585"
             android:textSize="@dimen/menu_text_size" />
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/happy2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/linear_id"
+        android:baselineAlignBottom="true"
+        android:layout_marginLeft="300dp"
+        android:contentDescription="@string/playful_panda"
+        android:src="@drawable/happy_panda2" />
 
 
 </RelativeLayout>
