@@ -47,6 +47,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     private MediaPlayer mPlayer;
     private boolean isPlaying = false;
     private int last_index = -1;
+
     private ModalMultiSelectorCallback mDeleteMode = new ModalMultiSelectorCallback(mMultiSelector) {
 
         @Override
@@ -103,14 +104,8 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
 
                         audios.add(FileProvider.getUriForFile(context, "com.kenn.ghsoft.blackboard.fileprovider", new File(filePath)));
                     }
-                    Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Student's assignments.");
-                    shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, audios);
-                    shareIntent.setType("audio/*");
-                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    context.startActivity(Intent.createChooser(shareIntent, "Submit homework to teacher..."));
-                    mMultiSelector.clearSelections();
+                    shareRecordings(audios);
+
                     return true;
             }
             return false;
@@ -169,6 +164,17 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         notifyItemRangeChanged(pos, recordingArrayList.size());
     }
 
+    void shareRecordings(ArrayList<Uri> recUri) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Student's assignments.");
+        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, recUri);
+        shareIntent.setType("audio/*");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.startActivity(Intent.createChooser(shareIntent, "Submit homework to teacher..."));
+        mMultiSelector.clearSelections();
+    }
+
     public class ViewHolder extends SwappingHolder implements View.OnClickListener, View.OnLongClickListener {
 
         RelativeLayout rootView;
@@ -199,6 +205,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             itemView.setOnClickListener(this);
             itemView.setLongClickable(true);
             itemView.setOnLongClickListener(this);
+
 
             imageViewPlay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -252,6 +259,8 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         public boolean onLongClick(View view) {
             ((AppCompatActivity) context).startSupportActionMode(mDeleteMode);
             mMultiSelector.setSelected(this, true);
+
+
             return true;
         }
 
