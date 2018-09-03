@@ -2,18 +2,23 @@ package com.kenn.ghsoft.blackboard;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -22,30 +27,104 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SwappingHolder;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.ViewHolder> {
 
     private Context context;
+    Recording recording;
+    private ArrayList<Recording> recordingArraylist;
     private ArrayList<Recording> recordingArrayList;
+    private MultiSelector mMultiSelector = new MultiSelector();
+    private RecordingAdapter recordingAdapter;
+    private RecyclerView recyclerViewRecordings;
     private MediaPlayer mPlayer;
     private boolean isPlaying = false;
     private int last_index = -1;
-    private List<Integer> selectedIds = new ArrayList<>();
-    private SparseBooleanArray selectedItems;
+    private ModalMultiSelectorCallback mDeleteMode = new ModalMultiSelectorCallback(mMultiSelector) {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            super.onCreateActionMode(actionMode, menu);
+            AppCompatActivity.class.cast(context).getMenuInflater().inflate(R.menu.ctx_action_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+
+            switch (menuItem.getItemId()) {
+                case R.id.action_delete:
+                    // Need to finish the action mode before doing the following,
+                    // not after. No idea why, but it crashes.
+                    actionMode.finish();
+
+                    for (int i = recordingArrayList.size(); i >= 0; i--) {
+                        if (mMultiSelector.isSelected(i, getItemId(i))) {
+                            Recording recording = recordingArrayList.get(i);
+                            deleteItem(recording);
+
+                            actionMode.finish();
+
+                            File root = Environment.getExternalStorageDirectory();
+                            String path = root.getAbsolutePath() + "/Blackboard/Audios";
+                            File directory = new File(path);
+                            File[] files = directory.listFiles();
+                            files[i].delete();
+                            if (files.length == 1) {
+                                ((RecordingListActivity) context).showNoRecordingsText();
+                            }
+                        }
+                    }
+                    mMultiSelector.clearSelections();
+                    return true;
+
+                case R.id.action_share:
+                    actionMode.finish();
+
+                    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Blackboard/Audios/";
+                    Log.d("Files", "Path: " + path);
+                    File directory = new File(path);
+                    File[] files = directory.listFiles();
+                    Log.d("Files", "Size: " + files.length);
+                    ArrayList<Uri> audios = new ArrayList<>();
+
+                    for (int i = 0; i < mMultiSelector.getSelectedPositions().size(); i++) {
+
+                        int selectedRecording = mMultiSelector.getSelectedPositions().get(i);
+
+                        String filePath = files[selectedRecording].getPath();
+
+                        audios.add(FileProvider.getUriForFile(context, "com.kenn.ghsoft.blackboard.fileprovider", new File(filePath)));
+                    }
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Student's assignments.");
+                    shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, audios);
+                    shareIntent.setType("audio/*");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    context.startActivity(Intent.createChooser(shareIntent, "Submit homework to teacher..."));
+                    mMultiSelector.clearSelections();
+                    return true;
+            }
+            return false;
+        }
+    };
 
     public RecordingAdapter(Context context, ArrayList<Recording> recordingArrayList) {
         this.context = context;
         this.recordingArrayList = recordingArrayList;
-        selectedItems=new SparseBooleanArray();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.recording_item_layout, parent, false);
         return new ViewHolder(view);
     }
@@ -53,18 +132,8 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         setUpData(holder, position);
-
-        int id = recordingArrayList.get(position).getId();
-
-        if (selectedIds.contains(id)) {
-            //if item is selected then,set foreground color of FrameLayout.
-            holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context, R.color.colorControlActivated)));
-        } else {
-            //else remove selected item color.
-            holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent)));
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -92,25 +161,15 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         return recordingArrayList.size();
     }
 
-    public Recording getItem(int position){
-        return recordingArrayList.get(position);
-    }
-
-    void deleteItem(int position) {
-        recordingArrayList.remove(position);
+    void deleteItem(Recording rec) {
+        int pos = recordingArrayList.indexOf(rec);
+        recordingArrayList.remove(rec);
         notifyDataSetChanged();
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, recordingArrayList.size());
-
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, recordingArrayList.size());
     }
 
-    public void setSelectedIds(List<Integer> selectedIds) {
-        this.selectedIds = selectedIds;
-        notifyDataSetChanged();
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends SwappingHolder implements View.OnClickListener, View.OnLongClickListener {
 
         RelativeLayout rootView;
         ImageView imageViewPlay;
@@ -129,7 +188,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         };
 
         public ViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, mMultiSelector);
 
             imageViewPlay = itemView.findViewById(R.id.imageViewPlay);
             seekBar = itemView.findViewById(R.id.seekBar);
@@ -137,6 +196,9 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
             checkBox = itemView.findViewById(R.id.checkBox);
             rootView = itemView.findViewById(R.id.rootView);
 
+            itemView.setOnClickListener(this);
+            itemView.setLongClickable(true);
+            itemView.setOnLongClickListener(this);
 
             imageViewPlay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,8 +237,22 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
                         last_index = position;
                     }
                 }
-
             });
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (isSelectable()) {
+                //if multiple selection is enabled then select item on single click else perform normal click on item.
+                mMultiSelector.tapSelection(getAdapterPosition(), getItemId());
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            ((AppCompatActivity) context).startSupportActionMode(mDeleteMode);
+            mMultiSelector.setSelected(this, true);
+            return true;
         }
 
 
@@ -248,12 +324,10 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
                 public void onCompletion(MediaPlayer mp) {
                     audio.setPlaying(false);
                     notifyItemChanged(position);
-
                 }
             });
-
-
         }
 
     }
+
 }

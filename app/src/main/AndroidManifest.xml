@@ -50,7 +50,20 @@
             android:name=".MainRecordingActivity"
             android:label="Recorder"
             android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
             android:theme="@style/MyTheme.AppCompat.Dialog" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.kenn.ghsoft.blackboard.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+
     </application>
 
 </manifest>
