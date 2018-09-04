@@ -44,7 +44,12 @@ public class RecordingListActivity extends AppCompatActivity {
         recordingArraylist = new ArrayList<>();
         initViews();
         fetchRecordings();
+        makeFabGoAway();
 
+
+    }
+
+    void makeFabGoAway() {
         if (recordingArraylist.size() == 0) {
             menuLabelsRight.setVisibility(View.INVISIBLE);
         }
@@ -127,6 +132,7 @@ public class RecordingListActivity extends AppCompatActivity {
                 (this).showNoRecordingsText();
                 menuLabelsRight.close(true);
             }
+            makeFabGoAway();
         }
 
     }

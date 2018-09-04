@@ -81,6 +81,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
                             if (files.length == 1) {
                                 ((RecordingListActivity) context).showNoRecordingsText();
                             }
+                            ((RecordingListActivity) context).makeFabGoAway();
                         }
                     }
                     mMultiSelector.clearSelections();
@@ -259,8 +260,6 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         public boolean onLongClick(View view) {
             ((AppCompatActivity) context).startSupportActionMode(mDeleteMode);
             mMultiSelector.setSelected(this, true);
-
-
             return true;
         }
 
